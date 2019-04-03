@@ -16,9 +16,13 @@ Part 2:
   The following are the routes.
   
   File: authController.js
+  
   Route: /api/users/login
+ 
   desc: sends a jwt token as response after validation
+  
   Method: POST
+  
   Body and content type: application/json with email and password {email:[email], password: [password]}  
   
   
@@ -27,19 +31,29 @@ Part 2:
   
   
   File: usersController.js
+  
   Route: /api/users/all
+  
   desc: sends array of users details as response
+  
   Method: GET
   
   File: usersController.js
+  
   Route: /api/users/:user_id/posts
+  
   desc: sends array of posts made by the user user_id as response
+  
   Method: GET
   
   File: usersController.js
+  
   Route: /api/users/upload
+  
   desc: logged in user could update the image.
+  
   Body: Image sent as form-data with key name of "profilePic"
+  
   Method: PUT
   
 
