@@ -39,6 +39,7 @@ data.then(fetchedData => {
         .then((posts) => mongoose.connection.close())
         .catch(err => console.log(err));
     }
+    console.log("Database has been populated");
 })
 .catch(err => console.log(err));
 

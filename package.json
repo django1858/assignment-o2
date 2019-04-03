@@ -2,10 +2,10 @@
   "name": "assignment-o2",
   "version": "1.0.0",
   "description": "",
-  "main": "Rest API\\server.js",
+  "main": "Rest API/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon Rest API\\server.js"
+    "start": "nodemon Rest API/server.js"
   },
   "author": "",
   "license": "ISC",

@@ -21,7 +21,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({storage, fileFilter});
 
 //Route: /api/users/all
-//response: array of users
+//desc: sends array of users details as response
 //Method: GET
 //x-access-token: JWT token
 router.get("/all", (req, res) => {
@@ -41,6 +41,8 @@ router.get("/all", (req, res) => {
     }
 });
     }
+    else
+        res.status(401).json({err: "Token not found"})
 });
 
 //Route: /api/users/:user_id/posts
@@ -74,13 +76,15 @@ router.get("/:id/posts", (req, res) => {
         }
     });
 }
+else 
+    res.status(401).json({err: "Invalid token"})
 });
 
 //Router: /api/users/upload
 //method: PUT
 //desc: logged in users can change their profile picture
 //x-access-token: JWT token of logged in user
-//image sent as form-data
+//image sent as form-data with "profilePic" as Key and image as Value
 
 router.put("/upload", upload.single("profilePic"), (req, res) => {
     const token = req.headers["x-access-token"];
@@ -93,8 +97,14 @@ router.put("/upload", upload.single("profilePic"), (req, res) => {
                 const id = decoded.id;
                 mongoose.connect("mongodb://localhost:27017/master", {useNewUrlParser: true}).then(() => {
                     User.findById(id).then(user => {
+                        console.log("Found");
                         if(user.profilePicture !== undefined) 
-                            fs.unlinkSync(user.profilePicture);
+                            try{
+                                fs.unlinkSync(user.profilePicture);
+                            }
+                            catch(err){
+                                user.profilePicture = undefined;
+                            }
                         user.profilePicture = req.file.path;
                         User.findOneAndUpdate({_id:id}, {$set: user}, {new: true}).then(user => {
                             mongoose.connection.close();
@@ -105,6 +115,8 @@ router.put("/upload", upload.single("profilePic"), (req, res) => {
             } 
         });
     }
+    else
+        res.status(401).send({err: "Invalid token"});
 });
 
 module.exports = router;
