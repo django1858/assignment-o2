@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 
 //Route: /api/users/login
 //Method: Post
-//body : Content-Type: Application/json {email: [email], password: [password]}
+//body : Application/json {email: [email], password: [password]}
 //response: 200 - signed JWT token
 
 router.post("/login", (req, res) => {

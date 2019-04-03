@@ -22,6 +22,7 @@ const upload = multer({storage, fileFilter});
 
 //Route: /api/users/all
 //response: array of users
+//Method: GET
 //x-access-token: JWT token
 router.get("/all", (req, res) => {
 
@@ -43,6 +44,7 @@ router.get("/all", (req, res) => {
 });
 
 //Route: /api/users/:user_id/posts
+//method: GET
 //response: array of posts by User with id 'user_id' 
 //x-access-token: JWT token of logged in user
 
@@ -74,7 +76,13 @@ router.get("/:id/posts", (req, res) => {
 }
 });
 
-router.post("/upload", upload.single("profilePic"), (req, res) => {
+//Router: /api/users/upload
+//method: PUT
+//desc: logged in users can change their profile picture
+//x-access-token: JWT token of logged in user
+//image sent as form-data
+
+router.put("/upload", upload.single("profilePic"), (req, res) => {
     const token = req.headers["x-access-token"];
     if(token){
         jwt.verify(token, "secret", (err, decoded) => {
