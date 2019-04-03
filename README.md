@@ -22,6 +22,7 @@ Part 2:
   Body and content type: application/json with email and password {email:[email], password: [password]}  
   
   
+  
   The following routes requires the JWT token to be sent in the request header with key of "x-access-token".
   
   
